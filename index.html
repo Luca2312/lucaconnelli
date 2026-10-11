@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luca Connelli — 3D CAD Designer</title>
+  <meta name="description" content="Luca Connelli, 3D CAD designer: NURBS modeling, product design, prototyping and rendering.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cousine:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="nav">
+    <a href="#top" class="logo">LC</a>
+    <nav>
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact" class="nav-cta">Contact</a>
+    </nav>
+  </header>
+
+  <!-- ===== FIXED STAGE: the video stays in place for the whole site, scroll drives its time ===== -->
+  <div class="stage" aria-hidden="true">
+    <canvas id="scrubCanvas"></canvas>
+    <div class="stage-vignette"></div>
+    <div class="grid-overlay"></div>
+
+    <div class="hud hud-tl mono">VIEWPORT · PERSPECTIVE<br>PROJECT · SPIDERSLIPPER / SUNGLASSES</div>
+    <div class="hud hud-tr mono">FRAME <span id="frameNum">0000</span><br>T <span id="timeNum">00.00</span>s</div>
+
+    <div class="progress">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-ticks mono" id="progressTicks"></div>
+    </div>
+
+    <div class="loader mono" id="loader"><p>LOADING GEOMETRY… <span id="loadPct">0</span>%</p></div>
+  </div>
+
+  <!-- ===== SCROLLING CONTENT: text flows over the fixed video ===== -->
+  <main class="content">
+
+    <!-- Hero text sits in the bottom band, below the subject, and fades out as soon as you scroll -->
+    <section class="hero" id="top">
+      <div class="hero-inner" id="heroInner">
+        <div>
+          <p class="kicker mono">// 3D CAD Designer</p>
+          <h1>Luca Connelli</h1>
+        </div>
+        <div class="hero-side">
+          <p class="lead">Ideas, engineered into precise geometry. Ready for production.</p>
+          <p class="scroll-hint mono">Scroll to explore ↓</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block block-right">
+      <p class="kicker mono">// About</p>
+      <p class="statement">
+        I turn <strong>taste</strong> into <strong>design</strong>, and <strong>innovation</strong>
+        into real <strong>components</strong>. Objects engineered to be made, not just shown.
+      </p>
+    </section>
+
+    <section class="block block-left">
+      <p class="kicker mono">01 — Modeling</p>
+      <h2>NURBS surfaces.<br>Zero compromise.</h2>
+      <p class="lead">Continuous curvature, clean fillets, tight tolerances. Built to be manufactured, not just rendered.</p>
+    </section>
+
+    <section class="block block-right">
+      <p class="kicker mono">02 — Product design</p>
+      <h2>From concept<br>to prototype.</h2>
+      <p class="lead">Sketch, model, iterate. Files ready for 3D printing, CNC or injection molding.</p>
+    </section>
+
+    <section class="block block-left">
+      <p class="kicker mono">03 — Visualization</p>
+      <h2>Renders that<br>sell the product.</h2>
+      <p class="lead">Photoreal visuals for clients, campaigns and launches.</p>
+    </section>
+
+    <section class="block block-center" id="services">
+      <p class="kicker mono">// Services</p>
+      <h2>What I<br>bring</h2>
+      <div class="cards">
+        <article class="card">
+          <span class="card-num mono">01</span>
+          <h3>3D CAD Modeling</h3>
+          <p>Precise NURBS and solid models, class-A surfaces. STEP · IGES · STL export.</p>
+        </article>
+        <article class="card">
+          <span class="card-num mono">02</span>
+          <h3>Product Design</h3>
+          <p>From idea to production file. Ergonomics and feasibility built in.</p>
+        </article>
+        <article class="card">
+          <span class="card-num mono">03</span>
+          <h3>Prototyping</h3>
+          <p>Print-ready files for FDM / SLA and CNC. Tolerances and fits, verified.</p>
+        </article>
+        <article class="card">
+          <span class="card-num mono">04</span>
+          <h3>Rendering &amp; Motion</h3>
+          <p>Still life, 360° animations and exploded views. Photoreal.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="block block-center" id="process">
+      <p class="kicker mono">// Process</p>
+      <h2>Idea to<br>finished part</h2>
+      <ol class="steps">
+        <li><span class="mono">01</span><div><h3>Brief</h3><p>Goals, constraints, materials, budget.</p></div></li>
+        <li><span class="mono">02</span><div><h3>Concept</h3><p>Sketches and volumes that set the direction.</p></div></li>
+        <li><span class="mono">03</span><div><h3>Modeling</h3><p>Precision CAD geometry, full surface control.</p></div></li>
+        <li><span class="mono">04</span><div><h3>Prototype</h3><p>Print, test, iterate on the physical part.</p></div></li>
+        <li><span class="mono">05</span><div><h3>Delivery</h3><p>Production files, renders, documentation.</p></div></li>
+      </ol>
+    </section>
+
+    <!-- Gallery: each project is a stacked deck that fans out on hover and opens its grid (data-gallery) on click -->
+    <section class="block block-center gallery-block" id="gallery">
+      <p class="kicker mono">// Gallery</p>
+      <h2 class="gallery-title">Selected Works</h2>
+      <div class="projects">
+        <article class="project">
+          <p class="project-meta mono"><span class="project-num">01</span><span>Eyewear · Concept</span></p>
+          <button class="deck deck-square" type="button" data-gallery="gridSpider" aria-label="Open gallery: SDRG - F25c00 x 300700"></button>
+          <h3>SDRG - F25c00 x 300700</h3>
+          <p class="deck-hint mono"><span><span class="deck-count"></span> images</span><span class="hint-cta">Open →</span></p>
+        </article>
+        <article class="project">
+          <p class="project-meta mono"><span class="project-num">02</span><span>Retail · Stand</span></p>
+          <button class="deck" type="button" data-gallery="gridGuapi" aria-label="Open gallery: GUAPI x Complexon w lilbaby"></button>
+          <h3>GUAPI x Complexon w lilbaby</h3>
+          <p class="deck-hint mono"><span><span class="deck-count"></span> images</span><span class="hint-cta">Open →</span></p>
+        </article>
+        <article class="project">
+          <p class="project-meta mono"><span class="project-num">03</span><span>Object · Collectible</span></p>
+          <button class="deck deck-square" type="button" data-gallery="gridMrak" aria-label="Open gallery: Candle Holder x MRAK"></button>
+          <h3>Candle Holder x MRAK</h3>
+          <p class="deck-hint mono"><span><span class="deck-count"></span> images</span><span class="hint-cta">Open →</span></p>
+        </article>
+        <article class="project">
+          <p class="project-meta mono"><span class="project-num">04</span><span>Fashion · Hardware</span></p>
+          <button class="deck deck-square" type="button" data-gallery="gridButton" aria-label="Open gallery: BUTTON x GUAPI"></button>
+          <h3>BUTTON x GUAPI</h3>
+          <p class="deck-hint mono"><span><span class="deck-count"></span> images</span><span class="hint-cta">Open →</span></p>
+        </article>
+        <article class="project">
+          <p class="project-meta mono"><span class="project-num">05</span><span>Furniture · Table</span></p>
+          <button class="deck deck-square" type="button" data-gallery="gridTable" aria-label="Open gallery: TABLE x GUAPI"></button>
+          <h3>TABLE x GUAPI</h3>
+          <p class="deck-hint mono"><span><span class="deck-count"></span> images</span><span class="hint-cta">Open →</span></p>
+        </article>
+        <article class="project">
+          <p class="project-meta mono"><span class="project-num">06</span><span>Packaging · Bottle</span></p>
+          <button class="deck deck-square" type="button" data-gallery="gridGranata" aria-label="Open gallery: GRANATA (Liquid Bottle) x GUAPI"></button>
+          <h3>GRANATA (Liquid Bottle) x GUAPI</h3>
+          <p class="deck-hint mono"><span><span class="deck-count"></span> images</span><span class="hint-cta">Open →</span></p>
+        </article>
+        <article class="project">
+          <p class="project-meta mono"><span class="project-num">07</span><span>Jewelry · Chain</span></p>
+          <button class="deck deck-square" type="button" data-gallery="gridSkate" aria-label="Open gallery: Skate Jeans Chain x GUAPI"></button>
+          <h3>Skate Jeans Chain x GUAPI</h3>
+          <p class="deck-hint mono"><span><span class="deck-count"></span> images</span><span class="hint-cta">Open →</span></p>
+        </article>
+        <article class="project">
+          <p class="project-meta mono"><span class="project-num">08</span><span>Eyewear · Luxury</span></p>
+          <button class="deck" type="button" data-gallery="gridSnake" aria-label="Open gallery: SNAKE Glasses x GUAPI"></button>
+          <h3>SNAKE Glasses x GUAPI</h3>
+          <p class="deck-hint mono"><span><span class="deck-count"></span> images</span><span class="hint-cta">Open →</span></p>
+        </article>
+        <article class="project">
+          <p class="project-meta mono"><span class="project-num">09</span><span>Concept · Fashion</span></p>
+          <button class="deck deck-portrait" type="button" data-gallery="gridVuitton" aria-label="Open gallery: VUITTON Gothic Vision FW2030 (unofficial concept)"><span class="tag-unofficial mono">Unofficial</span></button>
+          <h3>VUITTON Gothic Vision FW2030</h3>
+          <p class="deck-hint mono"><span><span class="deck-count"></span> images</span><span class="hint-cta">Open →</span></p>
+        </article>
+        <article class="project">
+          <p class="project-meta mono"><span class="project-num">10</span><span>Footwear · Slide</span></p>
+          <button class="deck" type="button" data-gallery="gridSlipper" aria-label="Open gallery: SPIDER Slipper x F25c00"></button>
+          <h3>SPIDER Slipper x F25c00</h3>
+          <p class="deck-hint mono"><span><span class="deck-count"></span> images</span><span class="hint-cta">Open →</span></p>
+        </article>
+        <article class="project">
+          <p class="project-meta mono"><span class="project-num">11</span><span>Jewelry · Pin</span></p>
+          <button class="deck deck-square" type="button" data-gallery="gridEagle" aria-label="Open gallery: EAGLE Pin x GUAPI"></button>
+          <h3>EAGLE Pin x GUAPI</h3>
+          <p class="deck-hint mono"><span><span class="deck-count"></span> images</span><span class="hint-cta">Open →</span></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="block block-center contact" id="contact">
+      <p class="kicker mono">// Contact</p>
+      <h2>Got a project<br>to shape?</h2>
+      <p class="lead">Tell me the idea. Reply within 48 hours.</p>
+      <a class="btn" href="mailto:lucaconnelli21@gmail.com">lucaconnelli21@gmail.com</a>
+    </section>
+
+    <footer class="footer mono">
+      <span>© 2026 Luca Connelli — 3D CAD Designer</span>
+      <span>Made with precision</span>
+    </footer>
+  </main>
+
+  <!-- Gallery grids, one per project. To change the images, edit these lists: data-full = large image, img src = thumbnail -->
+  <dialog class="gallery-grid" id="gridSpider" aria-label="Gallery: SDRG - F25c00 x 300700">
+    <header class="grid-head">
+      <div><p class="kicker mono">// Gallery · 01</p><h2 class="grid-title">SDRG - F25c00 x 300700</h2></div>
+      <button class="dialog-close mono" type="button" data-close>Close ✕</button>
+    </header>
+    <div class="grid grid-square">
+      <button class="grid-item" type="button" data-full="assets/galleria/spiderglasses/full/01.avif"><img src="assets/galleria/spiderglasses/thumb/01.avif" alt="SDRG black and silver, temple side view" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/spiderglasses/full/02.avif"><img src="assets/galleria/spiderglasses/thumb/02.avif" alt="SDRG black and silver, three-quarter view" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/spiderglasses/full/03.avif"><img src="assets/galleria/spiderglasses/thumb/03.avif" alt="SDRG black and silver, top view" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/spiderglasses/full/04.avif"><img src="assets/galleria/spiderglasses/thumb/04.avif" alt="SDRG black and silver, low front view" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/spiderglasses/full/05.avif"><img src="assets/galleria/spiderglasses/thumb/05.avif" alt="SDRG black and red, three-quarter view" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/spiderglasses/full/06.avif"><img src="assets/galleria/spiderglasses/thumb/06.avif" alt="Bridge and spider-web relief, detail" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/spiderglasses/full/07.avif"><img src="assets/galleria/spiderglasses/thumb/07.avif" alt="Two SDRG in black and red, still life" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/spiderglasses/full/08.avif"><img src="assets/galleria/spiderglasses/thumb/08.avif" alt="SDRG black and red with reflection, still life" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/spiderglasses/full/09.avif"><img src="assets/galleria/spiderglasses/thumb/09.avif" alt="Rose gold and black variants, front view" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/spiderglasses/full/10.avif"><img src="assets/galleria/spiderglasses/thumb/10.avif" alt="Rose gold and black variants, side view" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/spiderglasses/full/11.avif"><img src="assets/galleria/spiderglasses/thumb/11.avif" alt="CAD: temple hinge detail, work in progress" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/spiderglasses/full/12.avif"><img src="assets/galleria/spiderglasses/thumb/12.avif" alt="CAD: spider-web ribs modeled as pipes on the surface" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/spiderglasses/full/13.avif"><img src="assets/galleria/spiderglasses/thumb/13.avif" alt="CAD: NURBS construction curves of frame and lens" width="480" height="480"></button>
+    </div>
+  </dialog>
+
+  <dialog class="gallery-grid" id="gridGuapi" aria-label="Gallery: GUAPI x Complexon w lilbaby">
+    <header class="grid-head">
+      <div><p class="kicker mono">// Gallery · 02</p><h2 class="grid-title">GUAPI x Complexon w lilbaby</h2></div>
+      <button class="dialog-close mono" type="button" data-close>Close ✕</button>
+    </header>
+    <div class="grid">
+        <button class="grid-item" type="button" data-full="assets/galleria/guapi/full/01.avif"><img src="assets/galleria/guapi/thumb/01.avif" alt="Axonometric view: marble counters and gold sculpture" width="640" height="360"></button>
+        <button class="grid-item" type="button" data-full="assets/galleria/guapi/full/02.avif"><img src="assets/galleria/guapi/thumb/02.avif" alt="Top view with wall graphics and display counters" width="640" height="360"></button>
+        <button class="grid-item" type="button" data-full="assets/galleria/guapi/full/03.avif"><img src="assets/galleria/guapi/thumb/03.avif" alt="Dimensioned view: 40 × 20 ft, 8 ft high" width="640" height="360"></button>
+        <button class="grid-item" type="button" data-full="assets/galleria/guapi/full/04.avif"><img src="assets/galleria/guapi/thumb/04.avif" alt="Front view: GUAPI fabric sofa and central counter" width="640" height="360"></button>
+        <button class="grid-item" type="button" data-full="assets/galleria/guapi/full/05.avif"><img src="assets/galleria/guapi/thumb/05.avif" alt="Plan view of the layout" width="640" height="360"></button>
+        <button class="grid-item" type="button" data-full="assets/galleria/guapi/full/06.avif"><img src="assets/galleria/guapi/thumb/06.avif" alt="Top view from the entrance side" width="640" height="360"></button>
+        <button class="grid-item" type="button" data-full="assets/galleria/guapi/full/07.avif"><img src="assets/galleria/guapi/thumb/07.avif" alt="Perimeter with perforated gold panels" width="640" height="360"></button>
+        <button class="grid-item" type="button" data-full="assets/galleria/guapi/full/08.avif"><img src="assets/galleria/guapi/thumb/08.avif" alt="Elevated front view: counters and sculpture" width="640" height="360"></button>
+        <button class="grid-item" type="button" data-full="assets/galleria/guapi/full/09.avif"><img src="assets/galleria/guapi/thumb/09.avif" alt="Fabric sofa and sculptural table, close-up" width="640" height="360"></button>
+        <button class="grid-item" type="button" data-full="assets/galleria/guapi/full/10.avif"><img src="assets/galleria/guapi/thumb/10.avif" alt="Interior: display walls with perforated panels" width="640" height="360"></button>
+        <button class="grid-item" type="button" data-full="assets/galleria/guapi/full/11.avif"><img src="assets/galleria/guapi/thumb/11.avif" alt="Interior: fabric divider and wall displays" width="640" height="360"></button>
+        <button class="grid-item" type="button" data-full="assets/galleria/guapi/full/12.avif"><img src="assets/galleria/guapi/thumb/12.avif" alt="CAD: axonometric view, x-ray mode" width="640" height="360"></button>
+        <button class="grid-item" type="button" data-full="assets/galleria/guapi/full/13.avif"><img src="assets/galleria/guapi/thumb/13.avif" alt="CAD: front elevation with counter, sign and display walls" width="640" height="360"></button>
+        <button class="grid-item" type="button" data-full="assets/galleria/guapi/full/14.avif"><img src="assets/galleria/guapi/thumb/14.avif" alt="CAD: glass-top table with logo structure" width="640" height="360"></button>
+        <button class="grid-item" type="button" data-full="assets/galleria/guapi/full/15.avif"><img src="assets/galleria/guapi/thumb/15.avif" alt="CAD: full model with exploded panels and components" width="640" height="360"></button>
+        <button class="grid-item" type="button" data-full="assets/galleria/guapi/full/16.avif"><img src="assets/galleria/guapi/thumb/16.avif" alt="CAD: perforated panels on the curved perimeter" width="640" height="360"></button>
+        <button class="grid-item" type="button" data-full="assets/galleria/guapi/full/17.avif"><img src="assets/galleria/guapi/thumb/17.avif" alt="CAD: precision dimensioning on a perforated panel" width="640" height="360"></button>
+    </div>
+  </dialog>
+
+  <dialog class="gallery-grid" id="gridMrak" aria-label="Gallery: Candle Holder x MRAK">
+    <header class="grid-head">
+      <div><p class="kicker mono">// Gallery · 03</p><h2 class="grid-title">Candle Holder x MRAK</h2></div>
+      <button class="dialog-close mono" type="button" data-close>Close ✕</button>
+    </header>
+    <div class="grid grid-square">
+      <button class="grid-item" type="button" data-full="assets/galleria/mrak/full/01.avif"><img src="assets/galleria/mrak/thumb/01.avif" alt="Candle holder in four finishes: gold, black, pink and blue" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/mrak/full/02.avif"><img src="assets/galleria/mrak/thumb/02.avif" alt="Black candle holder, three-quarter view" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/mrak/full/03.avif"><img src="assets/galleria/mrak/thumb/03.avif" alt="Black candle holder with a lit candle" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/mrak/full/04.avif"><img src="assets/galleria/mrak/thumb/04.avif" alt="Two black candle holders with lit candles, still life" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/mrak/full/05.avif"><img src="assets/galleria/mrak/thumb/05.avif" alt="Gold, light blue and pink candle holders with candles" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/mrak/full/06.avif"><img src="assets/galleria/mrak/thumb/06.avif" alt="Black candle holder up front, other finishes behind" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/mrak/full/07.avif"><img src="assets/galleria/mrak/thumb/07.avif" alt="CAD: candle holder model, work in progress" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/mrak/full/08.avif"><img src="assets/galleria/mrak/thumb/08.avif" alt="CAD: bottom view with logo engraved under the foot" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/mrak/full/09.avif"><img src="assets/galleria/mrak/thumb/09.avif" alt="CAD: NURBS construction curves" width="480" height="480"></button>
+    </div>
+  </dialog>
+
+  <dialog class="gallery-grid" id="gridButton" aria-label="Gallery: BUTTON x GUAPI">
+    <header class="grid-head">
+      <div><p class="kicker mono">// Gallery · 04</p><h2 class="grid-title">BUTTON x GUAPI</h2></div>
+      <button class="dialog-close mono" type="button" data-close>Close ✕</button>
+    </header>
+    <div class="grid grid-square">
+      <button class="grid-item" type="button" data-full="assets/galleria/button/full/01.avif"><img src="assets/galleria/button/thumb/01.avif" alt="Gold GUAPI button with eagle crest, front view" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/button/full/02.avif"><img src="assets/galleria/button/thumb/02.avif" alt="Gold GUAPI button, three-quarter view with shank" width="480" height="480"></button>
+    </div>
+  </dialog>
+
+  <dialog class="gallery-grid" id="gridTable" aria-label="Gallery: TABLE x GUAPI">
+    <header class="grid-head">
+      <div><p class="kicker mono">// Gallery · 05</p><h2 class="grid-title">TABLE x GUAPI</h2></div>
+      <button class="dialog-close mono" type="button" data-close>Close ✕</button>
+    </header>
+    <div class="grid grid-square">
+      <button class="grid-item" type="button" data-full="assets/galleria/table/full/01.avif"><img src="assets/galleria/table/thumb/01.avif" alt="Glass and chrome table in a marble interior" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/table/full/02.avif"><img src="assets/galleria/table/thumb/02.avif" alt="Table from above at an angle, logo frame under the glass" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/table/full/03.avif"><img src="assets/galleria/table/thumb/03.avif" alt="Top view: the logo frame through the glass top" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/table/full/04.avif"><img src="assets/galleria/table/thumb/04.avif" alt="CAD: three-quarter view with glass top" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/table/full/05.avif"><img src="assets/galleria/table/thumb/05.avif" alt="CAD: side view with curved legs" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/table/full/06.avif"><img src="assets/galleria/table/thumb/06.avif" alt="CAD: bottom view of the leg joint" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/table/full/07.avif"><img src="assets/galleria/table/thumb/07.avif" alt="CAD: frame and pin details, close-up" width="480" height="480"></button>
+    </div>
+  </dialog>
+
+  <dialog class="gallery-grid" id="gridGranata" aria-label="Gallery: GRANATA (Liquid Bottle) x GUAPI">
+    <header class="grid-head">
+      <div><p class="kicker mono">// Gallery · 06</p><h2 class="grid-title">GRANATA (Liquid Bottle) x GUAPI</h2></div>
+      <button class="dialog-close mono" type="button" data-close>Close ✕</button>
+    </header>
+    <div class="grid grid-square">
+      <button class="grid-item" type="button" data-full="assets/galleria/granata/full/01.avif"><img src="assets/galleria/granata/thumb/01.avif" alt="Clear glass grenade bottle with engraved logo panels" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/granata/full/02.avif"><img src="assets/galleria/granata/thumb/02.avif" alt="Glass bottle detail: cap unscrewed from the threaded neck" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/granata/full/03.avif"><img src="assets/galleria/granata/thumb/03.avif" alt="CAD: full bottle with lever, cap and chain rings" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/granata/full/04.avif"><img src="assets/galleria/granata/thumb/04.avif" alt="CAD: view from below with the bottom ring" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/granata/full/05.avif"><img src="assets/galleria/granata/thumb/05.avif" alt="CAD: GUAPI cap lifted off the threaded neck" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/granata/full/06.avif"><img src="assets/galleria/granata/thumb/06.avif" alt="CAD: thread detail between cap and neck" width="480" height="480"></button>
+    </div>
+  </dialog>
+
+  <dialog class="gallery-grid" id="gridSkate" aria-label="Gallery: Skate Jeans Chain x GUAPI">
+    <header class="grid-head">
+      <div><p class="kicker mono">// Gallery · 07</p><h2 class="grid-title">Skate Jeans Chain x GUAPI</h2></div>
+      <button class="dialog-close mono" type="button" data-close>Close ✕</button>
+    </header>
+    <div class="grid grid-square">
+      <button class="grid-item" type="button" data-full="assets/galleria/skate/full/01.avif"><img src="assets/galleria/skate/thumb/01.avif" alt="Full skateboard-link chain in silver on black" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/skate/full/02.avif"><img src="assets/galleria/skate/thumb/02.avif" alt="Seven pink chrome decks with engraved artwork" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/skate/full/03.avif"><img src="assets/galleria/skate/thumb/03.avif" alt="Chain links with wheels and rings, close-up" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/skate/full/04.avif"><img src="assets/galleria/skate/thumb/04.avif" alt="Hanging chain, engraved decks from above" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/skate/full/05.avif"><img src="assets/galleria/skate/thumb/05.avif" alt="CAD: spider-web engraving on a deck with trucks" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/skate/full/06.avif"><img src="assets/galleria/skate/thumb/06.avif" alt="CAD: the full chain of linked decks" width="480" height="480"></button>
+    </div>
+  </dialog>
+
+  <dialog class="gallery-grid" id="gridSnake" aria-label="Gallery: SNAKE Glasses x GUAPI">
+    <header class="grid-head">
+      <div><p class="kicker mono">// Gallery · 08</p><h2 class="grid-title">SNAKE Glasses x GUAPI</h2></div>
+      <button class="dialog-close mono" type="button" data-close>Close ✕</button>
+    </header>
+    <div class="grid">
+      <button class="grid-item" type="button" data-full="assets/galleria/snake/full/01.avif"><img src="assets/galleria/snake/thumb/01.avif" alt="Rimless glasses with chipped smoke lenses and gold snake temples" width="640" height="360"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/snake/full/02.avif"><img src="assets/galleria/snake/thumb/02.avif" alt="Smoke version from behind, wavy snake temples" width="640" height="360"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/snake/full/03.avif"><img src="assets/galleria/snake/thumb/03.avif" alt="Side view of the wavy gold snake temples" width="640" height="360"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/snake/full/04.avif"><img src="assets/galleria/snake/thumb/04.avif" alt="Ice-blue version with twisted snake temples" width="640" height="360"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/snake/full/05.avif"><img src="assets/galleria/snake/thumb/05.avif" alt="Twisted snake temple, textured gold detail" width="640" height="360"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/snake/full/06.avif"><img src="assets/galleria/snake/thumb/06.avif" alt="Ice-blue version, side view of the twisted temples" width="640" height="360"></button>
+    </div>
+  </dialog>
+
+  <dialog class="gallery-grid" id="gridVuitton" aria-label="Gallery: VUITTON Gothic Vision FW2030 (unofficial concept)">
+    <header class="grid-head">
+      <div><p class="kicker mono">// Gallery · 09 <span class="tag-unofficial mono">Unofficial</span></p><h2 class="grid-title">VUITTON Gothic Vision FW2030</h2></div>
+      <button class="dialog-close mono" type="button" data-close>Close ✕</button>
+    </header>
+    <div class="grid grid-portrait">
+      <button class="grid-item" type="button" data-full="assets/galleria/vuitton/full/01.avif"><img src="assets/galleria/vuitton/thumb/01.avif" alt="Gothic spire pillar with monogram details, black render" width="360" height="640"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/vuitton/full/02.avif"><img src="assets/galleria/vuitton/thumb/02.avif" alt="Wrought-iron fence panel on a monogram base, front view" width="360" height="640"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/vuitton/full/03.avif"><img src="assets/galleria/vuitton/thumb/03.avif" alt="Fence panel, three-quarter view" width="360" height="640"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/vuitton/full/04.avif"><img src="assets/galleria/vuitton/thumb/04.avif" alt="Fence from above: spear finials and flower medallions" width="360" height="640"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/vuitton/full/05.avif"><img src="assets/galleria/vuitton/thumb/05.avif" alt="Fence from below, monogram on the base" width="360" height="640"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/vuitton/full/06.avif"><img src="assets/galleria/vuitton/thumb/06.avif" alt="Flower-cut sphere finial, close-up" width="360" height="640"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/vuitton/full/07.avif"><img src="assets/galleria/vuitton/thumb/07.avif" alt="CAD: spire pillar and fence panel together" width="360" height="640"></button>
+    </div>
+  </dialog>
+
+  <dialog class="gallery-grid" id="gridSlipper" aria-label="Gallery: SPIDER Slipper x F25c00">
+    <header class="grid-head">
+      <div><p class="kicker mono">// Gallery · 10</p><h2 class="grid-title">SPIDER Slipper x F25c00</h2></div>
+      <button class="dialog-close mono" type="button" data-close>Close ✕</button>
+    </header>
+    <div class="grid">
+      <button class="grid-item" type="button" data-full="assets/galleria/slipper/full/01.avif"><img src="assets/galleria/slipper/thumb/01.avif" alt="Black and red spider-web slides, floating pair" width="640" height="360"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/slipper/full/02.avif"><img src="assets/galleria/slipper/thumb/02.avif" alt="Black and red slides, side view of the layered sole" width="640" height="360"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/slipper/full/03.avif"><img src="assets/galleria/slipper/thumb/03.avif" alt="All-black slides with cut-out web upper" width="640" height="360"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/slipper/full/04.avif"><img src="assets/galleria/slipper/thumb/04.avif" alt="Clay render of the pair, three-quarter view" width="640" height="360"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/slipper/full/05.avif"><img src="assets/galleria/slipper/thumb/05.avif" alt="Clay render, close-up of the web upper and tread" width="640" height="360"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/slipper/full/06.avif"><img src="assets/galleria/slipper/thumb/06.avif" alt="CAD: side view with NURBS control points" width="640" height="360"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/slipper/full/07.avif"><img src="assets/galleria/slipper/thumb/07.avif" alt="CAD: gold model with control points, side view" width="640" height="360"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/slipper/full/08.avif"><img src="assets/galleria/slipper/thumb/08.avif" alt="CAD: gold model with control points, three-quarter view" width="640" height="360"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/slipper/full/09.avif"><img src="assets/galleria/slipper/thumb/09.avif" alt="CAD: outsole tread from below" width="640" height="360"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/slipper/full/10.avif"><img src="assets/galleria/slipper/thumb/10.avif" alt="CAD: outsole layout, top view" width="640" height="360"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/slipper/full/11.avif"><img src="assets/galleria/slipper/thumb/11.avif" alt="CAD: tread block detail, close-up" width="640" height="360"></button>
+    </div>
+  </dialog>
+
+  <dialog class="gallery-grid" id="gridEagle" aria-label="Gallery: EAGLE Pin x GUAPI">
+    <header class="grid-head">
+      <div><p class="kicker mono">// Gallery · 11</p><h2 class="grid-title">EAGLE Pin x GUAPI</h2></div>
+      <button class="dialog-close mono" type="button" data-close>Close ✕</button>
+    </header>
+    <div class="grid grid-square">
+      <button class="grid-item" type="button" data-full="assets/galleria/eagle/full/01.avif"><img src="assets/galleria/eagle/thumb/01.avif" alt="Gold eagle pin: ribbon, star, eagle and GUAPI cross" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/eagle/full/02.avif"><img src="assets/galleria/eagle/thumb/02.avif" alt="Back of the gold pin with engraved GUAPI lettering" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/eagle/full/03.avif"><img src="assets/galleria/eagle/thumb/03.avif" alt="CAD: full pin assembly, three-quarter view" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/eagle/full/04.avif"><img src="assets/galleria/eagle/thumb/04.avif" alt="CAD: eagle with NURBS control points" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/eagle/full/05.avif"><img src="assets/galleria/eagle/thumb/05.avif" alt="CAD: wing feathers and jump ring, close-up" width="480" height="480"></button>
+      <button class="grid-item" type="button" data-full="assets/galleria/eagle/full/06.avif"><img src="assets/galleria/eagle/thumb/06.avif" alt="CAD: feather relief detail, low angle" width="480" height="480"></button>
+    </div>
+  </dialog>
+
+  <dialog class="lightbox" id="lightbox" aria-label="Image">
+    <figure>
+      <img alt="">
+      <figcaption class="mono"><span id="lbCaption"></span><span id="lbCount"></span></figcaption>
+    </figure>
+    <button class="lb-nav lb-prev mono" type="button" aria-label="Previous image">←</button>
+    <button class="lb-nav lb-next mono" type="button" aria-label="Next image">→</button>
+    <button class="dialog-close lb-close mono" type="button" data-close>Close ✕</button>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
