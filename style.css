@@ -184,6 +184,9 @@ a { color: inherit; text-decoration: none; }
   content: ""; display: block; width: 11px; height: 11px; margin: 0 auto .55rem;
   border-radius: 50%; border: 1px solid #fff; background: transparent;
 }
+/* a subset shown as a plain caption: no circle, no connector line */
+.psub li.no-node::before, .psub li.no-node h4::before { display: none; }
+.psub li.no-node { padding-top: 1rem; }
 .psub p { font-size: .85rem; line-height: 1.45; color: rgba(255,255,255,.88); }
 
 /* ---------- GALLERY ---------- */
