@@ -4,7 +4,7 @@
   --feather: 0 0 26px 14px rgba(255, 255, 255, 0.5); /* same white, fading out past the box edge */
   --line: rgba(0, 0, 0, 0.12);
   --text: #0a0a0a;   /* all text is black… */
-  --accent: #c4161c; /* …or red (matches the SpiderSlipper red) */
+  --accent: #c4161c; /* …or red (matches the red of the glasses) */
   --gutter: clamp(1rem, 6vw, 5rem);
   /* Courier New everywhere; Cousine is its metric-compatible twin where Courier New is not installed (Android, Linux) */
   --sans: "Courier New", Courier, "Cousine", monospace;
@@ -106,8 +106,6 @@ a { color: inherit; text-decoration: none; }
 .block-right { align-items: flex-end; text-align: right; }
 .block-center { align-items: center; text-align: center; }
 .block-center > * { max-width: 40rem; }
-/* centred sections: card grid and step list span the whole centred column */
-.block-center > .cards, .block-center > .steps { width: 100%; }
 
 .block h2 { font-size: clamp(2rem, 4.6vw, 4rem); font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.25rem; }
 .block h2 em { font-style: normal; color: var(--accent); }
@@ -118,28 +116,59 @@ a { color: inherit; text-decoration: none; }
 .scroll-hint { margin-top: .75rem; font-size: 0.75rem; animation: bob 2s ease-in-out infinite; }
 @keyframes bob { 50% { transform: translateY(6px); } }
 
-.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; text-align: left; }
-.card {
-  background: var(--panel); border-radius: 8px;
-  box-shadow: var(--feather); /* soft, blurred edges instead of a hard border */
-  padding: 1.25rem 1.25rem 1.4rem;
-  transition: border-color .3s;
-}
-.card:hover h3 { color: var(--accent); }
-.card-num { color: var(--accent); font-size: .72rem; }
-.card h3 { font-size: 1.05rem; font-weight: 600; margin: 1.25rem 0 .5rem; }
-.card p { line-height: 1.5; font-size: .88rem; }
 
-.steps {
-  list-style: none; margin-top: 1.5rem; text-align: left;
-  background: var(--panel); border-radius: 8px;
-  box-shadow: var(--feather); /* soft, blurred edges instead of a hard border */
+/* ---------- SERVICES & PROCESS: sets and subsets ----------
+   A soft dark veil (no hard edges) behind the section gives white text enough contrast over the video */
+.veiled { position: relative; }
+.veiled::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  /* the ellipse's vertical radius is exactly half the section, so it fades to nothing before the top and
+     bottom edges (no visible seam while scrolling); sideways it runs off the screen edges */
+  background: radial-gradient(ellipse 75% 50% at 50% 50%,
+    rgba(12,12,14,.72) 0%, rgba(12,12,14,.64) 35%, rgba(12,12,14,.42) 60%,
+    rgba(12,12,14,.16) 82%, rgba(12,12,14,0) 100%);
 }
-.steps li { display: flex; gap: 1.25rem; padding: 1rem 1.25rem; border-top: 1px solid var(--line); }
-.steps li:first-child { border-top: 0; }
-.steps span { font-size: .72rem; color: var(--accent); padding-top: .2rem; }
-.steps h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: .2rem; }
-.steps p { line-height: 1.45; font-size: .88rem; }
+.veiled { color: #f4f4f4; --line-light: rgba(255,255,255,.4); }
+.veiled .kicker { color: #ff4a4f; }
+.veiled h2 { color: #fff; }
+.block-center > .pmap { max-width: 58rem; width: 100%; }
+.pmap { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 1.25rem; }
+/* the line that links the three sets, from the first ring to the last */
+.pmap::before {
+  content: ""; position: absolute; top: 15px; left: calc(100% / 6); right: calc(100% / 6);
+  height: 1px; background: var(--line-light);
+}
+/* four sets (Services): the linking line runs from the first ring to the fourth */
+.block-center > .pmap-4 { max-width: 66rem; }
+.pmap-4 { grid-template-columns: repeat(4, 1fr); }
+.pmap-4::before { left: calc(100% / 8); right: calc(100% / 8); }
+/* on mid-size screens the four sets go 2 × 2 */
+@media (max-width: 1000px) and (min-width: 641px) {
+  .pmap-4 { grid-template-columns: repeat(2, 1fr); row-gap: 2.5rem; }
+  .pmap-4::before { display: none; }
+}
+.pset { padding: 0 1rem; }
+.pset-head { display: flex; flex-direction: column; align-items: center; gap: .7rem; }
+.ring {
+  position: relative; width: 31px; height: 31px; border-radius: 50%;
+  border: 1.5px solid #fff; background: #141416;
+}
+.ring::after { /* the set's core */
+  content: ""; position: absolute; inset: 9px; border-radius: 50%; background: #ff4a4f;
+}
+.pset-head h3 { font-size: .74rem; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; }
+/* subsets: a thin line drops from the set to each small circle */
+.psub { list-style: none; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.psub li { position: relative; display: flex; flex-direction: column; align-items: center; padding-top: 1.6rem; max-width: 15rem; }
+.psub li::before {
+  content: ""; position: absolute; top: .35rem; left: 50%; width: 1px; height: 1.05rem; background: var(--line-light);
+}
+.psub h4 { font-size: 1rem; font-weight: 700; margin-bottom: .3rem; }
+.psub h4::before { /* the subset circle */
+  content: ""; display: block; width: 11px; height: 11px; margin: 0 auto .55rem;
+  border-radius: 50%; border: 1px solid #fff; background: transparent;
+}
+.psub p { font-size: .85rem; line-height: 1.45; color: rgba(255,255,255,.88); }
 
 /* ---------- GALLERY ---------- */
 /* Editorial panel: two numbered projects side by side, separated by a hairline */
@@ -280,7 +309,13 @@ dialog { overscroll-behavior: contain; }
 }
 
 /* ---------- CONTACT / FOOTER ---------- */
-.contact .lead { margin-bottom: 2.5rem; }
+/* The contact text sticks just below the top-left HUD while you reach the end of the page:
+   in the last frames the glasses fill the centre/right, the top-left corner is empty */
+.contact { justify-content: flex-start; padding-top: 0; }
+.contact-inner { position: sticky; top: 8.25rem; max-width: 38rem; }
+.contact h2 { font-size: clamp(1.6rem, 2.8vw, 2.5rem); margin-bottom: .75rem; }
+.contact .lead { margin-bottom: 1.25rem; font-size: clamp(.9rem, 1.2vw, 1.05rem); }
+.contact .btn { padding: .8rem 1.4rem; }
 .btn {
   font-family: var(--mono); font-size: clamp(.85rem, 2vw, 1rem);
   background: var(--panel); color: var(--accent); border: 1.5px solid var(--accent);
@@ -301,6 +336,9 @@ dialog { overscroll-behavior: contain; }
   .hero-side { text-align: left; }
   .hero-side .lead { margin-left: 0; }
   .block-right { align-items: flex-start; text-align: left; }
-  .cards { grid-template-columns: 1fr; }
+  /* sets stack vertically, each keeps its own subset lines */
+  .pmap, .pmap-4 { grid-template-columns: 1fr; gap: 2rem; }
+  .pmap::before { display: none; }
+  .veiled::before { inset: 0; }
   .lb-nav { top: auto; bottom: 1rem; transform: none; }
 }

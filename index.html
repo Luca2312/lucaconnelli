@@ -28,7 +28,7 @@
     <div class="stage-vignette"></div>
     <div class="grid-overlay"></div>
 
-    <div class="hud hud-tl mono">VIEWPORT · PERSPECTIVE<br>PROJECT · SPIDERSLIPPER / SUNGLASSES</div>
+    <div class="hud hud-tl mono">VIEWPORT · PERSPECTIVE<br>PROJECT · SUNGLASSES</div>
     <div class="hud hud-tr mono">FRAME <span id="frameNum">0000</span><br>T <span id="timeNum">00.00</span>s</div>
 
     <div class="progress">
@@ -82,43 +82,69 @@
       <p class="lead">Photoreal visuals for clients, campaigns and launches.</p>
     </section>
 
-    <section class="block block-center" id="services">
+    <!-- Services: four sets (big rings on one line) with their subsets, same language as Process -->
+    <section class="block block-center veiled" id="services">
       <p class="kicker mono">// Services</p>
       <h2>What I<br>bring</h2>
-      <div class="cards">
-        <article class="card">
-          <span class="card-num mono">01</span>
-          <h3>3D CAD Modeling</h3>
-          <p>Precise NURBS and solid models, class-A surfaces. STEP · IGES · STL export.</p>
-        </article>
-        <article class="card">
-          <span class="card-num mono">02</span>
-          <h3>Product Design</h3>
-          <p>From idea to production file. Ergonomics and feasibility built in.</p>
-        </article>
-        <article class="card">
-          <span class="card-num mono">03</span>
-          <h3>Prototyping</h3>
-          <p>Print-ready files for FDM / SLA and CNC. Tolerances and fits, verified.</p>
-        </article>
-        <article class="card">
-          <span class="card-num mono">04</span>
-          <h3>Rendering &amp; Motion</h3>
-          <p>Still life, 360° animations and exploded views. Photoreal.</p>
-        </article>
+      <div class="pmap pmap-4">
+        <div class="pset">
+          <div class="pset-head"><span class="ring" aria-hidden="true"></span><h3 class="mono">3D CAD Modeling</h3></div>
+          <ul class="psub">
+            <li><h4>NURBS &amp; solids</h4><p>Precise models, class-A surfaces.</p></li>
+            <li><h4>Export</h4><p>STEP · IGES · STL, ready to share.</p></li>
+          </ul>
+        </div>
+        <div class="pset">
+          <div class="pset-head"><span class="ring" aria-hidden="true"></span><h3 class="mono">Product Design</h3></div>
+          <ul class="psub">
+            <li><h4>Idea to file</h4><p>From concept to production file.</p></li>
+            <li><h4>Fit for use</h4><p>Ergonomics and feasibility built in.</p></li>
+          </ul>
+        </div>
+        <div class="pset">
+          <div class="pset-head"><span class="ring" aria-hidden="true"></span><h3 class="mono">Prototyping</h3></div>
+          <ul class="psub">
+            <li><h4>Print-ready</h4><p>Files for FDM / SLA and CNC.</p></li>
+            <li><h4>Verified</h4><p>Tolerances and fits, checked.</p></li>
+          </ul>
+        </div>
+        <div class="pset">
+          <div class="pset-head"><span class="ring" aria-hidden="true"></span><h3 class="mono">Rendering &amp; Motion</h3></div>
+          <ul class="psub">
+            <li><h4>Still life</h4><p>Photoreal product shots.</p></li>
+            <li><h4>Motion</h4><p>360° animations and exploded views.</p></li>
+          </ul>
+        </div>
       </div>
     </section>
 
-    <section class="block block-center" id="process">
+    <!-- Process: three sets (big rings on one line) with their subsets (small circles) hanging below -->
+    <section class="block block-center veiled" id="process">
       <p class="kicker mono">// Process</p>
       <h2>Idea to<br>finished part</h2>
-      <ol class="steps">
-        <li><span class="mono">01</span><div><h3>Brief</h3><p>Goals, constraints, materials, budget.</p></div></li>
-        <li><span class="mono">02</span><div><h3>Concept</h3><p>Sketches and volumes that set the direction.</p></div></li>
-        <li><span class="mono">03</span><div><h3>Modeling</h3><p>Precision CAD geometry, full surface control.</p></div></li>
-        <li><span class="mono">04</span><div><h3>Prototype</h3><p>Print, test, iterate on the physical part.</p></div></li>
-        <li><span class="mono">05</span><div><h3>Delivery</h3><p>Production files, renders, documentation.</p></div></li>
-      </ol>
+      <div class="pmap">
+        <div class="pset">
+          <div class="pset-head"><span class="ring" aria-hidden="true"></span><h3 class="mono">Define</h3></div>
+          <ul class="psub">
+            <li><h4>Brief</h4><p>Goals, constraints, materials, budget.</p></li>
+            <li><h4>Concept</h4><p>Sketches and volumes that set the direction.</p></li>
+          </ul>
+        </div>
+        <div class="pset">
+          <div class="pset-head"><span class="ring" aria-hidden="true"></span><h3 class="mono">Engineer</h3></div>
+          <ul class="psub">
+            <li><h4>Modeling</h4><p>Precision CAD geometry, full surface control.</p></li>
+            <li><h4>Prototype</h4><p>Print, test, iterate on the physical part.</p></li>
+          </ul>
+        </div>
+        <div class="pset">
+          <div class="pset-head"><span class="ring" aria-hidden="true"></span><h3 class="mono">Deliver</h3></div>
+          <ul class="psub">
+            <li><h4>Production files</h4><p>STEP · IGES · STL, ready for the workshop.</p></li>
+            <li><h4>Renders &amp; docs</h4><p>Photoreal visuals and documentation.</p></li>
+          </ul>
+        </div>
+      </div>
     </section>
 
     <!-- Gallery: each project is a stacked deck that fans out on hover and opens its grid (data-gallery) on click -->
@@ -195,11 +221,14 @@
       </div>
     </section>
 
-    <section class="block block-center contact" id="contact">
-      <p class="kicker mono">// Contact</p>
-      <h2>Got a project<br>to shape?</h2>
-      <p class="lead">Tell me the idea. Reply within 48 hours.</p>
-      <a class="btn" href="mailto:lucaconnelli21@gmail.com">lucaconnelli21@gmail.com</a>
+    <!-- Contact: text pinned in the top-left corner (the empty area of the last frames), clear of the glasses -->
+    <section class="block block-left contact" id="contact">
+      <div class="contact-inner">
+        <p class="kicker mono">// Contact</p>
+        <h2>Got a project to shape?</h2>
+        <p class="lead">Tell me the idea. Reply within 48 hours.</p>
+        <a class="btn" href="mailto:lucaconnelli21@gmail.com">lucaconnelli21@gmail.com</a>
+      </div>
     </section>
 
     <footer class="footer mono">
