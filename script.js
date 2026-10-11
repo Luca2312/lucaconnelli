@@ -107,7 +107,7 @@ function nearestLoaded(i) {
   return -1;
 }
 
-// ---------- Canvas drawing (same as object-fit: cover) ----------
+// ---------- Canvas drawing (object-fit: cover on landscape screens) ----------
 function resizeCanvas() {
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   let w = window.innerWidth * dpr;
@@ -121,14 +121,54 @@ function resizeCanvas() {
   drawnFrame = -1;
 }
 
+// Portrait screens (phones): "cover" would crop the square video at the sides and cut the glasses.
+// There the frame is fitted to the width instead, and the empty bands above and below are filled
+// with the frame's own edge colours, blended in with a short gradient so no seam shows.
+const probe = document.createElement('canvas');
+probe.width = 1; probe.height = 2;
+const probeCtx = probe.getContext('2d', { willReadFrequently: true });
+const edgeColors = new Array(FRAME_COUNT); // cached [top, bottom] per frame
+
+function getEdgeColors(i, img) {
+  if (!edgeColors[i]) {
+    // average of the top and bottom 4% rows of the frame, squeezed into 1 × 2 pixels
+    const sw = img.naturalWidth, sh = Math.round(img.naturalHeight * 0.04);
+    probeCtx.drawImage(img, 0, 0, sw, sh, 0, 0, 1, 1);
+    probeCtx.drawImage(img, 0, img.naturalHeight - sh, sw, sh, 0, 1, 1, 1);
+    const d = probeCtx.getImageData(0, 0, 1, 2).data;
+    edgeColors[i] = [`${d[0]},${d[1]},${d[2]}`, `${d[4]},${d[5]},${d[6]}`]; // "r,g,b" strings
+  }
+  return edgeColors[i];
+}
+
 function draw(index) {
   const i = nearestLoaded(index);
   if (i < 0 || i === drawnFrame) return;
   const img = frames[i];
-  const scale = Math.max(canvas.width / img.naturalWidth, canvas.height / img.naturalHeight);
+  const cw = canvas.width, ch = canvas.height;
+  const portrait = ch > cw;
+  const scale = portrait
+    ? cw / img.naturalWidth
+    : Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
   const w = img.naturalWidth * scale;
   const h = img.naturalHeight * scale;
-  ctx.drawImage(img, (canvas.width - w) / 2, (canvas.height - h) / 2, w, h);
+  const x = (cw - w) / 2, y = (ch - h) / 2;
+
+  if (portrait && h < ch) {
+    const [top, bottom] = getEdgeColors(i, img);
+    ctx.fillStyle = `rgb(${top})`;    ctx.fillRect(0, 0, cw, ch / 2);
+    ctx.fillStyle = `rgb(${bottom})`; ctx.fillRect(0, ch / 2, cw, ch / 2);
+    ctx.drawImage(img, x, y, w, h);
+    const fade = h * 0.12;
+    let g = ctx.createLinearGradient(0, y, 0, y + fade);
+    g.addColorStop(0, `rgb(${top})`); g.addColorStop(1, `rgba(${top},0)`);
+    ctx.fillStyle = g; ctx.fillRect(0, y, cw, fade);
+    g = ctx.createLinearGradient(0, y + h, 0, y + h - fade);
+    g.addColorStop(0, `rgb(${bottom})`); g.addColorStop(1, `rgba(${bottom},0)`);
+    ctx.fillStyle = g; ctx.fillRect(0, y + h - fade, cw, fade);
+  } else {
+    ctx.drawImage(img, x, y, w, h);
+  }
   drawnFrame = i;
 }
 
